@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// Complete the viralAdvertising function below.
+int viralAdvertising(int n) 
+{
+    int s = 0, l =0, c = 0, d = 0;
+
+    for(d = 1; d<=n; d++)
+    {
+        if(d==1)
+        {
+            s = 5;
+            l = 2;
+            c = 2;
+        }
+        else
+        {
+            s = l*3;
+            l = floor(s/2);
+            c+=l; 
+        }
+    }
+
+    return c;
+
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int n;
+    cin >> n;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    int result = viralAdvertising(n);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
