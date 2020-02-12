@@ -1,0 +1,11 @@
+# Complete the findDigits function below.
+def findDigits(n):
+    c = str(n)
+    l = list(c)
+    cnt = 0
+    for i in l:
+        nm = int(i)
+        if nm!=0:
+            if n%nm == 0:
+                cnt+=1
+    return cnt
