@@ -1,0 +1,21 @@
+# Complete the jumpingOnClouds function below.
+def jumpingOnClouds(c, k):
+    n = len(c)
+    cnt = 0
+    stp = 0
+    i = 0
+    i = (i+k)%n
+    cl = c[i]
+    if cl == 1:
+        cnt+=1
+    stp+=1
+    e = 100
+    while(i!=0):
+        i = (i+k)%n
+        cl = c[i]
+        if cl == 1:
+            cnt+=1
+        stp+=1
+    cnt = cnt*2
+    e = e - cnt -stp
+    return e
