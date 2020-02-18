@@ -1,0 +1,48 @@
+def ch(s1, s2):
+    sm = 0
+    for i in range(3):
+        for j in range(3):
+            d = s1[i][j] - s2[i][j]
+            if d<0:
+                d=d*-1
+            sm+=d
+    return sm
+
+# Complete the formingMagicSquare function below.
+def formingMagicSquare(s): 
+    cost = 9999
+    s1 = [[2,7,6],[9,5,1],[4,3,8]]
+    s2 = [[4,3,8],[9,5,1],[2,7,6]]
+    s3 = [[8,3,4],[1,5,9],[6,7,2]]
+    s4 = [[6,7,2],[1,5,9],[8,3,4]]
+    s5 = [[8,1,6], [3,5,7], [4,9,2]]
+    s6 = [[4,9,2], [3,5,7], [8,1,6]]
+    s7 = [[2,9,4], [7,5,3], [6,1,8]]
+    s8 = [[6,1,8], [7,5,3], [2,9,4]]
+
+    for i in range(8):
+        if i==0:
+            if cost>ch(s,s1):
+                cost = ch(s, s1)
+        if i==1:
+            if cost>ch(s,s2):
+                cost = ch(s, s2)
+        if i==2:
+            if cost>ch(s,s3):
+                cost = ch(s, s3)
+        if i==3:
+            if cost>ch(s,s4):
+                cost = ch(s, s4)
+        if i==4:
+            if cost>ch(s,s5):
+                cost = ch(s, s5)
+        if i==5:
+            if cost>ch(s,s6):
+                cost = ch(s, s6)
+        if i==6:
+            if cost>ch(s,s7):
+                cost = ch(s, s7)
+        if i==7:
+            if cost>ch(s,s8):
+                cost = ch(s, s8)
+    return cost
