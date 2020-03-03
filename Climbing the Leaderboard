@@ -1,0 +1,32 @@
+def br(li, key, low, high):
+    val = 0
+    mid = (low+high)//2
+    if li[mid] == key:
+        val = mid+1
+    elif key>li[mid]:
+        if mid == 0:
+            val = 1
+        elif li[mid-1] > key:
+            val = mid + 1
+        else:
+            val = br(li, key, low, mid)
+    else:
+        if mid == len(li)-1:
+            val = len(li) + 1
+        elif li[mid+1]<key:
+            val = mid + 2
+        else:
+            val = br(li, key, mid+1, high)
+    return val
+
+def climbingLeaderboard(scores, alice):
+    l = scores
+    l = list(set(l))
+    l = sorted(l)
+    l = l[-1::-1]
+    d = len(l)+1
+    li = []
+    for i in alice:
+        rk = br(l, i, 0, len(l)-1)
+        li.append(rk)
+    return li
