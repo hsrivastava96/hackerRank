@@ -1,0 +1,12 @@
+def cutTheSticks(arr):
+    li = sorted(arr)
+    l = li
+    r = []
+    while(len(l)):
+        l = [x-l[0] for x in l]
+        r.append(len(l))
+        if len(l)>0:
+            while(len(l) and l[0]==0):
+                del(l[0])
+
+    return r
