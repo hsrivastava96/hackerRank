@@ -1,0 +1,14 @@
+def jumpingOnClouds(c):
+    j = 0
+    i = 0
+    while i<len(c):
+        if i<=len(c)-3:
+            if c[i+2] == 0:
+                i+=2
+                print(i)
+            else:
+                i+=1
+        else:
+            i+=1
+        j+=1
+    return j-1
