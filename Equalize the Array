@@ -1,0 +1,18 @@
+def equalizeArray(arr):
+    li = list(set(arr))
+    d = {}
+    for i in li:
+        d[i] = 0
+    mx = -1
+    for i in arr:
+        d[i]+=1
+    mx = li[0]
+    for i in d:
+        if d[i]>d[mx]:
+ #           print(i)
+            mx = i
+
+#    print(d, d[mx])
+
+#    print(len(arr)-d[mx])
+    return len(arr)-d[mx]
