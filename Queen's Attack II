@@ -10,45 +10,46 @@ def queensAttack(n, k, r_q, c_q, obstacles):
     #     li[i][j] = 1
     # for i in range(n):
     #     print(li[i])
-    dc = {}
-    for i,j in obstacles:
-        st = str(i)+str(j)
-        dc[st] = 0
+    obstacle = {}
+    for j in obstacles:
+        st = tuple(j)
+        obstacle[st] = 0
     i = r_q-1
     j = c_q
     s = 0
-    while i>0 and str(i)+str(j) not in dc:
+    # print(obstacles)
+    while i>0 and (i,j) not in obstacle:
         s+=1
         print("Up --> ", i, j)
         i-=1
     i = r_q+1
     j = c_q
-    while i<=n and str(i)+str(j) not in dc:
+    while i<=n and (i,j) not in obstacle:
         s+=1
         print("Down --> ", i, j)
         i+=1
     i = r_q
     j = c_q+1
-    while j<=n and str(i)+str(j) not in dc:
+    while j<=n and (i,j) not in obstacle:
         s+=1
         print("Right --> ", i, j)
         j+=1
     i = r_q
     j = c_q-1
-    while j>0 and str(i)+str(j) not in dc:
+    while j>0 and (i,j) not in obstacle:
         s+=1
         print("Left --> ", i, j)
         j-=1
     i = r_q-1
     j = c_q-1
-    while i>0 and j>0 and str(i)+str(j) not in dc:
+    while i>0 and j>0 and (i,j) not in obstacle:
         s+=1
         print("Upper Left Diagonal --> ", i, j)
         i-=1
         j-=1
     i = r_q-1
     j = c_q+1
-    while i>0 and j<=n and str(i)+str(j) not in dc:
+    while i>0 and j<=n and (i,j) not in obstacle:
         s+=1
         print("Upper Right Diagonal --> ", i, j)
         i-=1
@@ -56,7 +57,7 @@ def queensAttack(n, k, r_q, c_q, obstacles):
 
     i = r_q+1
     j = c_q-1
-    while i<=n and j>0 and str(i)+str(j) not in dc:
+    while i<=n and j>0 and (i,j) not in obstacle:
         s+=1
         print("Lower Left Diagonal --> ", i, j)
         i+=1
@@ -64,10 +65,9 @@ def queensAttack(n, k, r_q, c_q, obstacles):
 
     i = r_q+1
     j = c_q+1
-    while i<=n and j<=n and str(i)+str(j) not in dc:
+    while i<=n and j<=n and (i,j) not in obstacle:
         s+=1
         print("Lower Right Diagonal --> ", i, j)
         i+=1
         j+=1
-
     return s
