@@ -1,0 +1,32 @@
+// Complete the organizingContainers function below.
+string organizingContainers(vector<vector<int>> container) 
+{
+    int n = container.size();
+    int c_Array[n], r_Array[n];
+
+    for(int i = 0; i<n; i++)
+    {
+        c_Array[i] = 0;
+        r_Array[i] = 0;
+    }
+
+
+    for(int i =0; i<n; i++)
+    {        
+        for(int j=0; j<n; j++)
+        {
+            r_Array[i]+=container[i][j];
+            c_Array[i]+=container[j][i];   
+        }
+    }
+
+
+    int exor = 0;
+    for(int i = 0; i<n; i++)
+        exor^=r_Array[i]^c_Array[i];
+    
+    if(exor == 0)
+        return "Possible";
+    
+    return "Impossible";
+}
