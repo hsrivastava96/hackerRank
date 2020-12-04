@@ -1,0 +1,166 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector<string> split_string(string);
+
+vector<int> find_Indices(string s1, string s2)
+{
+    vector<int> ind;
+    int l1 = s1.length(), l2 = s2.length();
+    // cout<<"L2-L1 --> "<<(l1-l2)<<endl;
+    cout<<s1<<endl;
+    cout<<s2<<endl;
+    for(int i = 0; i <= l1-l2; i++)
+    {
+        // cout<<ind[0]<<endl;
+        int flag = 0;
+        for(int j = i, k = 0; j < (l2 + i); j++, k++)
+        {
+            if(s1[j] != s2[k])
+                flag = 1;
+        }
+        if(flag == 0)
+            ind.push_back(i);
+    }
+    cout<<"Indexes"<<endl;
+    for(int i = 0; i<ind.size(); i++)
+        cout<<ind[i]<<"\t";
+    cout<<endl;
+    // cout<<ind[0]<<endl;
+    return ind;
+}
+
+int follow_Up(string s1, string s2, int ind)
+{
+    for(int i = ind, k = 0; i < (s2.length() + i); i++, k++)
+    {
+        if(s1[i] != s2[k])
+            return -1;
+    }
+    return ind;
+}
+
+// Complete the gridSearch function below.
+string gridSearch(vector<string> G, vector<string> P) 
+{
+    int r_G = G.size(), c_G = G[0].size(), r_P = P.size(), c_P = P[0].size(), loc = 0;
+    // cout<<G[1].find(P[0])<<endl;
+    // cout<<"String G --> "<<G[0]<<"\tRow --> "<<r_G<<"\tColumn --> "<<c_G<<endl;
+    // cout<<"String P --> "<<P[0]<<"\tRow --> "<<r_P<<"\tColumn --> "<<c_P<<endl;
+    int flag_1 = 0;
+    for(int i = 0; i < r_G && flag_1 != 1; i++)
+    {
+        vector<int> locations = find_Indices(G[i], P[0]);
+        // cout<<"G[i] --> "<<G[i]<<endl;
+        // cout<<"P[0] --> "<<P[0]<<endl;
+        // cout<<locations[0]<<endl;
+        if(locations.size() > 0)
+        {
+            for(int ind = 0; ind < locations.size() && flag_1 != 1; ind++)
+            {
+                loc = locations[ind];
+                cout<<"Location of top row --> "<<i<<"\t"<<loc<<endl;
+                int flag = 0;
+                // cout<<(i+1<r_P-1 && flag == 0)<<endl;
+                for(int j = i+1, k = 1; (k < r_P) && (flag == 0); j++, k++)
+                {
+                    // int follow_Up_Loc = G[j].find(P[k]);
+                    int follow_Up_Loc = follow_Up(G[j], P[k], loc);
+                    cout<<"Following row location --> "<<follow_Up_Loc<<endl;
+                    if(follow_Up_Loc == -1 || follow_Up_Loc != loc)
+                        flag = 1;
+                }
+                if(flag == 0)
+                    flag_1 = 1;
+            }
+        }
+    } 
+    if(flag_1 == 1)
+        return "YES";
+    return "NO";
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    int t;
+    cin >> t;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    for (int t_itr = 0; t_itr < t; t_itr++) {
+        string RC_temp;
+        getline(cin, RC_temp);
+
+        vector<string> RC = split_string(RC_temp);
+
+        int R = stoi(RC[0]);
+
+        int C = stoi(RC[1]);
+
+        vector<string> G(R);
+
+        for (int i = 0; i < R; i++) {
+            string G_item;
+            getline(cin, G_item);
+
+            G[i] = G_item;
+        }
+
+        string rc_temp;
+        getline(cin, rc_temp);
+
+        vector<string> rc = split_string(rc_temp);
+
+        int r = stoi(rc[0]);
+
+        int c = stoi(rc[1]);
+
+        vector<string> P(r);
+
+        for (int i = 0; i < r; i++) {
+            string P_item;
+            getline(cin, P_item);
+
+            P[i] = P_item;
+        }
+
+        string result = gridSearch(G, P);
+
+        fout << result << "\n";
+    }
+
+    fout.close();
+
+    return 0;
+}
+
+vector<string> split_string(string input_string) {
+    string::iterator new_end = unique(input_string.begin(), input_string.end(), [] (const char &x, const char &y) {
+        return x == y and x == ' ';
+    });
+
+    input_string.erase(new_end, input_string.end());
+
+    while (input_string[input_string.length() - 1] == ' ') {
+        input_string.pop_back();
+    }
+
+    vector<string> splits;
+    char delimiter = ' ';
+
+    size_t i = 0;
+    size_t pos = input_string.find(delimiter);
+
+    while (pos != string::npos) {
+        splits.push_back(input_string.substr(i, pos - i));
+
+        i = pos + 1;
+        pos = input_string.find(delimiter, i);
+    }
+
+    splits.push_back(input_string.substr(i, min(pos, input_string.length()) - i + 1));
+
+    return splits;
+}
