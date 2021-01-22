@@ -33,6 +33,7 @@ int flatlandSpaceStations(int n, vector<int> c)
     return val;
 }
 
+
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
